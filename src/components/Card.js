@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import './Card.css';
 
 class Card extends React.Component {
   render() {
@@ -14,26 +15,52 @@ class Card extends React.Component {
       cardTrunfo } = this.props;
 
     return (
-      <>
-        <p data-testid="name-card">
-          { cardName }
-        </p>
+      <div className="container-card-make">
+        <h2>Pré-Visualização</h2>
+        <label htmlFor="name-card">
+          Pokemon Name
+          <p data-testid="name-card">
+            { cardName }
+          </p>
+        </label>
 
         <img src={ cardImage } alt={ cardName } data-testid="image-card" />
 
-        <p data-testid="description-card">
-          { cardDescription }
-        </p>
+        <hr className="division" />
 
-        <p data-testid="attr1-card">{ cardAttr1 }</p>
-        <p data-testid="attr2-card">{ cardAttr2 }</p>
-        <p data-testid="attr3-card">{ cardAttr3 }</p>
+        <label htmlFor="description-card">
+          Description
+          <p data-testid="description-card">
+            { cardDescription }
+          </p>
+        </label>
 
-        <p data-testid="rare-card">{ cardRare }</p>
+        <hr />
+
+        <label htmlFor="attr1-card" className="label-attribute power">
+          Power - - - - - - - - - - - - - - - - - - - - - - -
+          <p data-testid="attr1-card" className="attribute power">{ cardAttr1 }</p>
+        </label>
+        <label htmlFor="attr2-card" className="label-attribute speed">
+          Speed   - - - - - - - - - - - - - - - - - - - - - - -
+          <p data-testid="attr2-card" className="attribute speed">{ cardAttr2 }</p>
+        </label>
+        <label htmlFor="attr3-card" className="label-attribute defense">
+          Defense - - - - - - - - - - - - - - - - - - - - - -
+          <p data-testid="attr3-card" className="attribute defense">{ cardAttr3 }</p>
+
+        </label>
+
+        <hr />
+
+        <label htmlFor="rare-card">
+          Rarity
+          <p data-testid="rare-card">{ cardRare }</p>
+        </label>
 
         {/* <p data-testid="trunfo-card">{ (cardTrunfo) && 'Super Trunfo' }</p> */}
         { (cardTrunfo) && <p data-testid="trunfo-card">Super Trunfo</p> }
-      </>
+      </div>
     );
   }
 }
@@ -56,7 +83,7 @@ Card.defaultProps = {
   cardAttr2: 0,
   cardAttr3: 0,
   cardImage: '',
-  cardRare: '',
+  cardRare: 'normal',
   cardTrunfo: false,
 };
 
