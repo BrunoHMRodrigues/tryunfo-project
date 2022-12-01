@@ -1,7 +1,7 @@
 import React from 'react';
 import Form from './components/Form';
 import Card from './components/Card';
-import './App.css'
+import './App.css';
 
 // iniciando
 class App extends React.Component {
@@ -10,11 +10,11 @@ class App extends React.Component {
     this.state = {
       cardName: '',
       cardDescription: '',
-      cardAttr1: 0,
-      cardAttr2: 0,
-      cardAttr3: 0,
+      cardAttr1: '',
+      cardAttr2: '',
+      cardAttr3: '',
       cardImage: '',
-      cardRare: '',
+      cardRare: 'normal',
       cardTrunfo: false,
       hasTrunfo: false,
       isSaveButtonDisabled: true,
@@ -31,6 +31,39 @@ class App extends React.Component {
     const { name } = target;
     this.setState({
       [name]: value,
+    }, () => {
+      const {
+        cardName,
+        cardDescription,
+        cardAttr1,
+        cardAttr2,
+        cardAttr3,
+        cardImage,
+        cardRare,
+        // hasTrunfo,
+        // isSaveButtonDisabled,
+      } = this.state;
+      const totalMax = 210;
+      const attributeMax = 90;
+      const validationName = cardName !== '';
+      const validationDescription = cardDescription !== '';
+      const validationImage = cardImage !== '';
+      const validationRare = cardRare !== '';
+      const power = parseInt(cardAttr1, 10);
+      const speed = parseInt(cardAttr2, 10);
+      const defense = parseInt(cardAttr3, 10);
+      const validationPower = (power <= attributeMax && power >= 0 && power !== '');
+      const validationSpeed = (speed <= attributeMax && speed >= 0 && speed !== '');
+      const validationDefense = (defense <= attributeMax
+        && defense >= 0 && defense !== '');
+      const validationTotalMax = (power + speed + defense) <= totalMax;
+      if (validationName && validationDescription && validationImage && validationRare
+        && validationPower && validationSpeed && validationDefense
+        && validationTotalMax) {
+        this.setState({ isSaveButtonDisabled: false });
+      } else {
+        this.setState({ isSaveButtonDisabled: true });
+      }
     });
   }
 
@@ -48,5 +81,18 @@ class App extends React.Component {
     );
   }
 }
+
+// App.propTypes = {
+//   cardName: PropTypes.string.isRequired,
+//   cardDescription: PropTypes.string.isRequired,
+//   cardAttr1: PropTypes.string.isRequired,
+//   cardAttr2: PropTypes.string.isRequired,
+//   cardAttr3: PropTypes.string.isRequired,
+//   cardImage: PropTypes.string.isRequired,
+//   cardRare: PropTypes.string.isRequired,
+//   // cardTrunfo: PropTypes.bool.isRequired,
+//   // hasTrunfo: PropTypes.bool.isRequired,
+//   // isSaveButtonDisabled: PropTypes.bool.isRequired,
+// };
 
 export default App;
