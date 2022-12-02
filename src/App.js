@@ -18,6 +18,7 @@ class App extends React.Component {
       cardTrunfo: false,
       hasTrunfo: false,
       isSaveButtonDisabled: true,
+      savedCards: [],
       // onInputChange: this.onInputChange,
       // onSaveButtonClick: this.onSaveButtonClick,
     };
@@ -68,14 +69,52 @@ class App extends React.Component {
   }
 
   onSaveButtonClick() {
-
+    const {
+      cardName,
+      cardDescription,
+      cardAttr1,
+      cardAttr2,
+      cardAttr3,
+      cardImage,
+      cardRare,
+    } = this.state;
+    const card = {
+      cardName,
+      cardDescription,
+      cardAttr1,
+      cardAttr2,
+      cardAttr3,
+      cardImage,
+      cardRare,
+      // cardTrunfo: false,
+      // hasTrunfo: false,
+    };
+    this.setState((previewSaved) => ({
+      savedCards: [...previewSaved.savedCards, card],
+    }), () => {
+      this.setState({
+        cardName: '',
+        cardDescription: '',
+        cardAttr1: 0,
+        cardAttr2: 0,
+        cardAttr3: 0,
+        cardImage: '',
+        cardRare: 'normal',
+        // cardTrunfo: false,
+        // hasTrunfo: false,
+      });
+    });
   }
 
   render() {
     return (
       <div className="container-main">
         <h1>Tryunfo</h1>
-        <Form { ...this.state } onInputChange={ this.onInputChange } />
+        <Form
+          { ...this.state }
+          onInputChange={ this.onInputChange }
+          onSaveButtonClick={ this.onSaveButtonClick }
+        />
         <Card { ...this.state } />
       </div>
     );
