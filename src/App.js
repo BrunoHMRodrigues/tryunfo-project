@@ -87,6 +87,16 @@ class App extends React.Component {
       cardTrunfo,
       // hasTrunfo,
     } = this.state;
+
+    let {
+      hasTrunfo,
+    } = this.state;
+
+    console.log(hasTrunfo);
+    if (cardTrunfo === true) {
+      hasTrunfo = true;
+      this.state.hasTrunfo = true;
+    }
     const card = {
       cardName,
       cardDescription,
