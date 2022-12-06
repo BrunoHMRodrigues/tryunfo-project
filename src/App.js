@@ -85,16 +85,17 @@ class App extends React.Component {
       cardImage,
       cardRare,
       cardTrunfo,
+      savedCards,
       // hasTrunfo,
     } = this.state;
 
-    let {
-      hasTrunfo,
-    } = this.state;
+    // let {
+    //   hasTrunfo,
+    // } = this.state;
 
-    console.log(hasTrunfo);
     if (cardTrunfo === true) {
-      hasTrunfo = true;
+      // hasTrunfo = true;
+      this.setState({ hasTrunfo: true });
       this.state.hasTrunfo = true;
     }
     const card = {
@@ -106,6 +107,7 @@ class App extends React.Component {
       cardImage,
       cardRare,
       cardTrunfo,
+      savedCards,
       // hasTrunfo,
     };
     this.setState((previewSaved) => ({
@@ -126,6 +128,7 @@ class App extends React.Component {
   }
 
   render() {
+    const { savedCards } = this.state;
     return (
       <div className="container-main">
         <h1>Tryunfo</h1>
@@ -135,6 +138,17 @@ class App extends React.Component {
           onSaveButtonClick={ this.onSaveButtonClick }
         />
         <Card { ...this.state } />
+        <section className="container-all-cards">
+          <h2>Todas as Cartas</h2>
+          <div className="all-cards">
+            {
+              savedCards.map((element) => (
+                <Card key={ Math.random() } { ...element } />
+              ))
+            }
+            {/* <Card { ...this.state.savedCards[0] } /> */}
+          </div>
+        </section>
       </div>
     );
   }
