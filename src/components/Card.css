@@ -1,81 +1,80 @@
 .container-card-make {
-    background-color: white;
-    width: 500px;
-    height: 700px;
-    margin: 0;
-    padding: 30px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    border: 8px double gold;
-    border-radius: 8%;
+  align-items: center;
+  background-color: white;
+  border: 8px double gold;
+  border-radius: 8%;
+  display: flex;
+  flex-direction: column;
+  height: 700px;
+  margin: 0;
+  padding: 30px;
+  width: 500px;
 }
 
 label {
-    width: 80%;
-    margin-top: 5px;
-    font-size: 20px;
-    font-weight: 600;
+  font-size: 20px;
+  font-weight: 600;
+  margin-top: 5px;
+  width: 80%;
 }
 
 p {
-    width: 100%;
-    height: 1.5em;
-    text-align: center;
-    background-color: white;
-    margin: 10px 0;
+  background-color: white;
+  height: 1.5em;
+  margin: 10px 0;
+  text-align: center;
+  width: 100%;
 }
 
 img {
-    width: 60%;
-    height: 40%;
-    border: 1px solid black;
-    box-shadow: 5px 5px 8px gray;
+  border: 1px solid black;
+  box-shadow: 5px 5px 8px gray;
+  height: 40%;
+  width: 60%;
 }
 
 hr .division {
-    margin: 20px;
-    width: 70%;
-    height: 2px;
-    box-shadow: 5px 5px 8px gray;
+  box-shadow: 5px 5px 8px gray;
+  height: 2px;
+  margin: 20px;
+  width: 70%;
 }
 
 hr {
-    margin: 10px;
-    width: 70%;
-    height: 2px;
-    box-shadow: 5px 5px 8px gray;
+  box-shadow: 5px 5px 8px gray;
+  height: 2px;
+  margin: 10px;
+  width: 70%;
 }
 
 .attribute {
-    width: 40px;
-    margin: 0;
+  margin: 0;
+  width: 40px;
 }
 
 .label-attribute {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    /* background-color: gray; */
-    border: 1px solid gold;
-    border-radius: 15px;
-    padding: 2px 20px;
-    color: white;
+  align-items: center;
+  border: 1px solid gold;
+  border-radius: 15px;
+  color: white;
+  display: flex;
+  justify-content: center;
+  padding: 2px 20px;
 }
 
 .power {
-    background-color: red;
+  background-color: red;
 }
 
 .speed {
-    background-color: green;
+  background-color: green;
 }
 
 .defense {
-    background-color: blue;
+  background-color: blue;
 }
 
 .line-attribute {
-    border: 2px dashed black;
-    height: 1px;
+  border: 2px dashed black;
+  height: 1px;
 }

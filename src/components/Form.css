@@ -1,43 +1,46 @@
 form {
-    background-color: white;
-    width: 400px;
-    height: 700px;
-    padding: 30px 20px;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    border: 8px double gold;
-    border-radius: 8%;
+  align-items: center;
+  background-color: white;
+  border: 8px double gold;
+  border-radius: 8%;
+  display: flex;
+  flex-direction: column;
+  height: 700px;
+  justify-content: space-between;
+  margin: 0;
+  padding: 30px 20px;
+  width: 400px;
 }
+
 label {
-    width: 80%;
+  width: 80%;
 }
+
 input, select {
-    height: 1.5em;
-    text-align: center;
+  height: 1.5em;
+  text-align: center;
 }
+
 textarea {
-    height: 5em;
+  height: 5em;
 }
 
 input, textarea, select {
-    width: 100%;
+  width: 100%;
 }
 
 .label-super-trunfo {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-weight: 900;
+  align-items: center;
+  display: flex;
+  font-weight: 900;
+  justify-content: center;
 }
 
 .input-super-trunfo {
-    width: 30px;
+  width: 30px;
 }
 
 button {
-    padding: 10px 50px;
-    margin: 5px;
+  margin: 5px;
+  padding: 10px 50px;
 }
