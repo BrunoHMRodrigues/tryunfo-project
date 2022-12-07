@@ -20,12 +20,13 @@ class App extends React.Component {
       isSaveButtonDisabled: true,
       savedCards: [],
       filteredSavedCards: [],
-      // onInputChange: this.onInputChange,
-      // onSaveButtonClick: this.onSaveButtonClick,
+      filterName: '',
+      filterRarity: 'todas',
+      filterTrunfo: false,
     };
     this.onInputChange = this.onInputChange.bind(this);
     this.onSaveButtonClick = this.onSaveButtonClick.bind(this);
-    // this.removeCard = this.removeCard.bind(this);
+    this.filterCards = this.filterCards.bind(this);
   }
 
   onInputChange(event) {
@@ -49,8 +50,6 @@ class App extends React.Component {
           cardAttr3,
           cardImage,
           cardRare,
-          // hasTrunfo,
-          // isSaveButtonDisabled,
         } = this.state;
         const totalMax = 210;
         const attributeMax = 90;
@@ -88,15 +87,9 @@ class App extends React.Component {
       cardRare,
       cardTrunfo,
       savedCards,
-      // hasTrunfo,
     } = this.state;
 
-    // let {
-    //   hasTrunfo,
-    // } = this.state;
-
     if (cardTrunfo === true) {
-      // hasTrunfo = true;
       this.setState({ hasTrunfo: true });
       this.state.hasTrunfo = true;
     }
@@ -110,7 +103,6 @@ class App extends React.Component {
       cardRare,
       cardTrunfo,
       savedCards,
-      // hasTrunfo,
     };
     this.setState((previewSaved) => ({
       savedCards: [...previewSaved.savedCards, card],
@@ -125,19 +117,45 @@ class App extends React.Component {
         cardImage: '',
         cardRare: 'normal',
         cardTrunfo: false,
-        // hasTrunfo: false,
       });
     });
   }
 
-  // removeCard(event) {
-  //   event.target.remove();
-  // }
+  handleChange = ({ target, target: { name, value, checked } }) => {
+    if (name === 'filterTrunfo') {
+      const nameElement = target.parentElement
+        .previousElementSibling.previousElementSibling;
+      const rarityElement = target.parentElement.previousElementSibling;
+      if (checked === true) {
+        nameElement.disabled = true;
+        rarityElement.disabled = true;
+      } else {
+        nameElement.disabled = false;
+        rarityElement.disabled = false;
+      }
+      this.setState({ [name]: checked }, () => this.filterCards());
+    } else {
+      this.setState({ [name]: value }, () => this.filterCards());
+    }
+  };
+
+  filterCards() {
+    const { filterName, filterRarity, filterTrunfo, savedCards } = this.state;
+    const nameSearch = filterName.toUpperCase();
+    const filteringName = savedCards
+      .filter((element) => (element.cardName
+        .toUpperCase().includes(nameSearch)));
+    const filteringRarity = (filterRarity === 'todas') ? filteringName : (
+      filteringName.filter((element) => (element.cardRare === filterRarity))
+    );
+    const filteringTrunfo = (filterTrunfo === false) ? filteringRarity : (
+      filteringRarity.filter((element) => (element.cardTrunfo === true))
+    );
+    this.setState({ filteredSavedCards: filteringTrunfo });
+  }
 
   render() {
-    const { savedCards } = this.state;
-    const { filteredSavedCards } = this.state;
-    // let filteredCards = [];
+    const { savedCards, filteredSavedCards } = this.state;
     return (
       <div className="container-main">
         <h1>Tryunfo</h1>
@@ -148,66 +166,40 @@ class App extends React.Component {
         />
         <Card { ...this.state } />
         <section className="container-all-cards">
-          <div className="all-cards">
-            <h2>Todas as Cartas</h2>
+          <h2>Todas as Cartas</h2>
+          <div className="container-filter">
             <input
+              name="filterName"
               data-testid="name-filter"
               placeholder="Digite o nome da carta"
               className="input-card-search"
-              onChange={ (event) => {
-                // const arrayCards = event.target.nextElementSibling.childNodes;
-                // const nameSearch = event.target.value.toUpperCase();
-                // arrayCards.forEach((card) => {
-                //   const name = card.firstChild.children[1]
-                //     .firstElementChild.innerText.toUpperCase();
-                //   if (name.includes(nameSearch)) {
-                //     card.style.display = 'flex';
-                //   } else {
-                //     card.style.display = 'none';
-                //   }
-
-                // const ul = event.target.nextElementSibling;
-                // const nameSearch = event.target.value.toUpperCase();
-                // // const name = element.cardName.toUpperCase();
-                // const arraySavedCards = savedCards
-                //   .filter((element) => element.cardName.toUpperCase()
-                //     .includes(nameSearch));
-                // event.target.nextElementSibling.innerHTML = '';
-                // arraySavedCards.map((element, index) => (
-                //   ul.appendChild(
-                //     <div key={ index } className="cardSaved" id={ index }>
-                //       <Card key={ Math.random() } { ...element } />
-                //       <button
-                //         type="button"
-                //         data-testid="delete-button"
-                //         className="button-erase"
-                //         onClick={ (e) => {
-                //           const { id } = e.target.parentNode;
-                //           const { testid } = e.target.previousElementSibling
-                //             .lastElementChild.dataset;
-                //           if (testid === 'trunfo-card') {
-                //             this.setState({ hasTrunfo: false });
-                //           }
-                //           const cardsRemoved = savedCards.splice(id, 1);
-                //           console.log(cardsRemoved); // Verificar maneira que não seja necessário esse console log devido ao linter
-                //           this.setState({ savedCards });
-                //         } }
-                //       >
-                //         Excluir
-                //       </button>
-                //     </div>
-                //   )
-                // ));
-                // });
-                const nameSearch = event.target.value.toUpperCase();
-                const filterName = savedCards
-                  .filter((element) => (element.cardName
-                    .toUpperCase().includes(nameSearch)));
-                this.setState({ filteredSavedCards: filterName });
-              } }
+              onChange={ (event) => this.handleChange(event) }
             />
+            <select
+              name="filterRarity"
+              data-testid="rare-filter"
+              className="select-rarity"
+              onChange={ (event) => this.handleChange(event) }
+            >
+              <option>todas</option>
+              <option>normal</option>
+              <option>raro</option>
+              <option>muito raro</option>
+            </select>
+
+            <label htmlFor="filterTrunfo" className="label-filter-super-trunfo">
+              <input
+                name="filterTrunfo"
+                type="checkbox"
+                data-testid="trunfo-filter"
+                className="filter-super-trunfo"
+                onChange={ (event) => this.handleChange(event) }
+              />
+              Super Trunfo
+            </label>
+          </div>
+          <div className="all-cards">
             <ul className="ul-all-cards">
-              {/* {console.log(filteredSavedCards)} */}
               {
                 filteredSavedCards.map((element, index) => (
                   <li key={ index } className="cardSaved" id={ index }>
@@ -225,7 +217,7 @@ class App extends React.Component {
                         }
                         const cardsRemoved = savedCards.splice(id, 1);
                         console.log(cardsRemoved); // Verificar maneira que não seja necessário esse console log devido ao linter
-                        this.setState({ savedCards });
+                        this.setState({ savedCards, filteredSavedCards: savedCards });
                       } }
                     >
                       Excluir

@@ -58,8 +58,35 @@ h2 {
   width: 100%;
 }
 
+.container-filter {
+  align-items: center;
+  display: flex;
+  height: max-content;
+  justify-content: center;
+  width: 80%;
+}
+
 .input-card-search {
   border-radius: 10px;
   height: 2em;
-  width: 50%;
+  margin: 5px;
+  width: 40%;
+}
+
+.select-rarity {
+  border-radius: 10px;
+  height: 2em;
+  margin: 5px;
+  width: 20%;
+}
+
+.label-filter-super-trunfo {
+  align-items: center;
+  display: flex;
+  width: 20%;
+}
+
+.filter-super-trunfo {
+  margin: 10px;
+  width: 20px;
 }
