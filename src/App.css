@@ -30,11 +30,36 @@ h2 {
   background-color: blueviolet;
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   min-height: 500px;
   width: 70vw;
 }
 
 .cardSaved {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
   height: 850px;
+  margin: 20px;
 }
 
+.button-erase {
+  border: none;
+  border-radius: 8px;
+  font-size: 20px;
+  font-weight: 900;
+  padding: 5px 20px;
+  width: max-content;
+}
+
+.ul-all-cards {
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+}
+
+.input-card-search {
+  border-radius: 10px;
+  height: 2em;
+  width: 50%;
+}

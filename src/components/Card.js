@@ -16,7 +16,6 @@ class Card extends React.Component {
 
     return (
       <div className="container-card-make">
-        <h2>Pré-Visualização</h2>
         <label htmlFor="name-card">
           Pokemon Name
           <p data-testid="name-card">

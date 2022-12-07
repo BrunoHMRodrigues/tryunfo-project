@@ -146,30 +146,51 @@ class App extends React.Component {
         <section className="container-all-cards">
           <div className="all-cards">
             <h2>Todas as Cartas</h2>
-            {
-              savedCards.map((element, index) => (
-                <div key={ index } className="cardSaved" id={ index }>
-                  <Card key={ Math.random() } { ...element } />
-                  <button
-                    type="button"
-                    data-testid="delete-button"
-                    onClick={ (event) => {
-                      const { id } = event.target.parentNode;
-                      const { testid } = event.target.previousElementSibling
-                        .lastElementChild.dataset;
-                      if (testid === 'trunfo-card') {
-                        this.setState({ hasTrunfo: false });
-                      }
-                      const cardsRemoved = savedCards.splice(id, 1);
-                      console.log(cardsRemoved); // Verificar maneira que não seja necessário esse console log devido ao linter
-                      this.setState({ savedCards });
-                    } }
-                  >
-                    Excluir
-                  </button>
-                </div>
-              ))
-            }
+            <input
+              data-testid="name-filter"
+              placeholder="Digite o nome da carta"
+              className="input-card-search"
+              onChange={ (event) => {
+                const arrayCards = event.target.nextElementSibling.childNodes;
+                const nameSearch = event.target.value.toUpperCase();
+                arrayCards.forEach((card) => {
+                  const name = card.firstChild.children[1]
+                    .firstElementChild.innerText.toUpperCase();
+                  if (name.includes(nameSearch)) {
+                    card.style.display = 'flex';
+                  } else {
+                    card.style.display = 'none';
+                  }
+                });
+              } }
+            />
+            <ul className="ul-all-cards">
+              {
+                savedCards.map((element, index) => (
+                  <div key={ index } className="cardSaved" id={ index }>
+                    <Card key={ Math.random() } { ...element } />
+                    <button
+                      type="button"
+                      data-testid="delete-button"
+                      className="button-erase"
+                      onClick={ (event) => {
+                        const { id } = event.target.parentNode;
+                        const { testid } = event.target.previousElementSibling
+                          .lastElementChild.dataset;
+                        if (testid === 'trunfo-card') {
+                          this.setState({ hasTrunfo: false });
+                        }
+                        const cardsRemoved = savedCards.splice(id, 1);
+                        console.log(cardsRemoved); // Verificar maneira que não seja necessário esse console log devido ao linter
+                        this.setState({ savedCards });
+                      } }
+                    >
+                      Excluir
+                    </button>
+                  </div>
+                ))
+              }
+            </ul>
             {/* <Card { ...this.state.savedCards[0] } /> */}
           </div>
         </section>
