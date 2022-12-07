@@ -19,6 +19,7 @@ class App extends React.Component {
       hasTrunfo: false,
       isSaveButtonDisabled: true,
       savedCards: [],
+      filteredSavedCards: [],
       // onInputChange: this.onInputChange,
       // onSaveButtonClick: this.onSaveButtonClick,
     };
@@ -113,6 +114,7 @@ class App extends React.Component {
     };
     this.setState((previewSaved) => ({
       savedCards: [...previewSaved.savedCards, card],
+      filteredSavedCards: [...previewSaved.savedCards, card],
     }), () => {
       this.setState({
         cardName: '',
@@ -134,6 +136,8 @@ class App extends React.Component {
 
   render() {
     const { savedCards } = this.state;
+    const { filteredSavedCards } = this.state;
+    // let filteredCards = [];
     return (
       <div className="container-main">
         <h1>Tryunfo</h1>
@@ -151,23 +155,62 @@ class App extends React.Component {
               placeholder="Digite o nome da carta"
               className="input-card-search"
               onChange={ (event) => {
-                const arrayCards = event.target.nextElementSibling.childNodes;
+                // const arrayCards = event.target.nextElementSibling.childNodes;
+                // const nameSearch = event.target.value.toUpperCase();
+                // arrayCards.forEach((card) => {
+                //   const name = card.firstChild.children[1]
+                //     .firstElementChild.innerText.toUpperCase();
+                //   if (name.includes(nameSearch)) {
+                //     card.style.display = 'flex';
+                //   } else {
+                //     card.style.display = 'none';
+                //   }
+
+                // const ul = event.target.nextElementSibling;
+                // const nameSearch = event.target.value.toUpperCase();
+                // // const name = element.cardName.toUpperCase();
+                // const arraySavedCards = savedCards
+                //   .filter((element) => element.cardName.toUpperCase()
+                //     .includes(nameSearch));
+                // event.target.nextElementSibling.innerHTML = '';
+                // arraySavedCards.map((element, index) => (
+                //   ul.appendChild(
+                //     <div key={ index } className="cardSaved" id={ index }>
+                //       <Card key={ Math.random() } { ...element } />
+                //       <button
+                //         type="button"
+                //         data-testid="delete-button"
+                //         className="button-erase"
+                //         onClick={ (e) => {
+                //           const { id } = e.target.parentNode;
+                //           const { testid } = e.target.previousElementSibling
+                //             .lastElementChild.dataset;
+                //           if (testid === 'trunfo-card') {
+                //             this.setState({ hasTrunfo: false });
+                //           }
+                //           const cardsRemoved = savedCards.splice(id, 1);
+                //           console.log(cardsRemoved); // Verificar maneira que não seja necessário esse console log devido ao linter
+                //           this.setState({ savedCards });
+                //         } }
+                //       >
+                //         Excluir
+                //       </button>
+                //     </div>
+                //   )
+                // ));
+                // });
                 const nameSearch = event.target.value.toUpperCase();
-                arrayCards.forEach((card) => {
-                  const name = card.firstChild.children[1]
-                    .firstElementChild.innerText.toUpperCase();
-                  if (name.includes(nameSearch)) {
-                    card.style.display = 'flex';
-                  } else {
-                    card.style.display = 'none';
-                  }
-                });
+                const filterName = savedCards
+                  .filter((element) => (element.cardName
+                    .toUpperCase().includes(nameSearch)));
+                this.setState({ filteredSavedCards: filterName });
               } }
             />
             <ul className="ul-all-cards">
+              {/* {console.log(filteredSavedCards)} */}
               {
-                savedCards.map((element, index) => (
-                  <div key={ index } className="cardSaved" id={ index }>
+                filteredSavedCards.map((element, index) => (
+                  <li key={ index } className="cardSaved" id={ index }>
                     <Card key={ Math.random() } { ...element } />
                     <button
                       type="button"
@@ -187,29 +230,15 @@ class App extends React.Component {
                     >
                       Excluir
                     </button>
-                  </div>
+                  </li>
                 ))
               }
             </ul>
-            {/* <Card { ...this.state.savedCards[0] } /> */}
           </div>
         </section>
       </div>
     );
   }
 }
-
-// App.propTypes = {
-//   cardName: PropTypes.string.isRequired,
-//   cardDescription: PropTypes.string.isRequired,
-//   cardAttr1: PropTypes.string.isRequired,
-//   cardAttr2: PropTypes.string.isRequired,
-//   cardAttr3: PropTypes.string.isRequired,
-//   cardImage: PropTypes.string.isRequired,
-//   cardRare: PropTypes.string.isRequired,
-//   // cardTrunfo: PropTypes.bool.isRequired,
-//   // hasTrunfo: PropTypes.bool.isRequired,
-//   // isSaveButtonDisabled: PropTypes.bool.isRequired,
-// };
 
 export default App;
