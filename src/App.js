@@ -24,6 +24,7 @@ class App extends React.Component {
     };
     this.onInputChange = this.onInputChange.bind(this);
     this.onSaveButtonClick = this.onSaveButtonClick.bind(this);
+    // this.removeCard = this.removeCard.bind(this);
   }
 
   onInputChange(event) {
@@ -127,6 +128,10 @@ class App extends React.Component {
     });
   }
 
+  // removeCard(event) {
+  //   event.target.remove();
+  // }
+
   render() {
     const { savedCards } = this.state;
     return (
@@ -139,11 +144,30 @@ class App extends React.Component {
         />
         <Card { ...this.state } />
         <section className="container-all-cards">
-          <h2>Todas as Cartas</h2>
           <div className="all-cards">
+            <h2>Todas as Cartas</h2>
             {
-              savedCards.map((element) => (
-                <Card key={ Math.random() } { ...element } />
+              savedCards.map((element, index) => (
+                <div key={ index } className="cardSaved" id={ index }>
+                  <Card key={ Math.random() } { ...element } />
+                  <button
+                    type="button"
+                    data-testid="delete-button"
+                    onClick={ (event) => {
+                      const { id } = event.target.parentNode;
+                      const { testid } = event.target.previousElementSibling
+                        .lastElementChild.dataset;
+                      if (testid === 'trunfo-card') {
+                        this.setState({ hasTrunfo: false });
+                      }
+                      const cardsRemoved = savedCards.splice(id, 1);
+                      console.log(cardsRemoved);
+                      this.setState({ savedCards });
+                    } }
+                  >
+                    Excluir
+                  </button>
+                </div>
               ))
             }
             {/* <Card { ...this.state.savedCards[0] } /> */}
