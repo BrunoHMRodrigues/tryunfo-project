@@ -161,7 +161,7 @@ class App extends React.Component {
                         this.setState({ hasTrunfo: false });
                       }
                       const cardsRemoved = savedCards.splice(id, 1);
-                      console.log(cardsRemoved);
+                      console.log(cardsRemoved); // Verificar maneira que não seja necessário esse console log devido ao linter
                       this.setState({ savedCards });
                     } }
                   >
